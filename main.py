@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import tensorflow as tf
+from tensorflow.python.framework import ops
 import numpy as np
 import os
 import glob
@@ -8,6 +9,7 @@ from imageio import imread, imsave
 import cv2
 import argparse
 
+tf.compat.v1.disable_eager_execution()
 parser = argparse.ArgumentParser()
 parser.add_argument('--no_makeup', type=str, default=os.path.join('imgs', 'no_makeup', 'xfsy_0068.png'), help='path to the no_makeup image')
 args = parser.parse_args()
@@ -26,14 +28,14 @@ makeups = glob.glob(os.path.join('imgs', 'makeup', '*.*'))
 result = np.ones((2 * img_size, (len(makeups) + 1) * img_size, 3))
 result[img_size: 2 *  img_size, :img_size] = no_makeup / 255.
 
-tf.reset_default_graph()
-sess = tf.Session()
-sess.run(tf.global_variables_initializer())
+ops.reset_default_graph()
+sess = tf.compat.v1.Session()
+sess.run(tf.compat.v1.global_variables_initializer())
 
-saver = tf.train.import_meta_graph(os.path.join('model', 'model.meta'))
-saver.restore(sess, tf.train.latest_checkpoint('model'))
+saver = tf.compat.v1.train.import_meta_graph(os.path.join('model', 'model.meta'))
+saver.restore(sess, tf.compat.v1.train.latest_checkpoint('model'))
 
-graph = tf.get_default_graph()
+graph = tf.compat.v1.get_default_graph()
 X = graph.get_tensor_by_name('X:0')
 Y = graph.get_tensor_by_name('Y:0')
 Xs = graph.get_tensor_by_name('generator/xs:0')
