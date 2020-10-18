@@ -1,5 +1,8 @@
 # BeautyGAN
 
+### Adjusted for tensorflow 2.2.0
+The original version of this project only worked with an earlier version of tensorflow. If you use tensorflow version 2 or higher, the new `main.py` should function properly. 
+
 ### 简介
 
 BeautyGAN: Instance-level Facial Makeup Transfer with Deep Generative Adversarial Network
@@ -14,8 +17,8 @@ BeautyGAN: Instance-level Facial Makeup Transfer with Deep Generative Adversaria
 
 ### 使用方法
 
-- Python3.6
-- TensorFlow1.9
+- Python 3.7.2
+- TensorFlow 2.2.0
 
 下载训练好的模型
 
